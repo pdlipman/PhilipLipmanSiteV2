@@ -1,0 +1,66 @@
+{
+  "name": "express-react-pdl",
+  "version": "0.1.0",
+  "description": "my React.js boilerplate",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pdlipman/express-react-pdl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pdlipman/express-react-pdl/issues"
+  },
+  "homepage": "https://github.com/pdlipman/express-react-pdl/wiki",
+  "scripts": {
+    "watch-js": "watchify -t [ babelify --presets [ react ] ] ./index.jsx -o ./dist/bundle.js",
+    "build-js": "browserify -t [ babelify --presets [ react ] ] ./index.jsx -o ./dist/bundle.js",
+    "build-css": "node-sass ./sass/main.scss ./dist/css/main.css",
+    "watch-css": "node-sass -w ./sass/main.scss ./dist/css/main.css",
+    "start": "node server",
+    "test": "jest --coverage",
+    "lint": "eslint --ext .js --ext .jsx .",
+    "lintreport": "eslint --ext .js --ext .jsx . -f checkstyle -o ./dist/lint/lintreport.xml",
+    "doc": "esdoc -c esdoc.json",
+    "dist": "npm run build-css && npm run build-js && npm run doc && npm run test && npm run lintreport",
+    "lr": "live-reload --port 35729 ./dist/",
+    "watch": "npm run build-css && npm run build-js && npm run watch-css & npm run watch-js & npm run lr & npm start"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-core": "^6.14.0",
+    "babel-eslint": "^7.0.0",
+    "babel-jest": "^16.0.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "esdoc": "^0.4.8",
+    "eslint": "^3.4.0",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "^2.2.1",
+    "eslint-plugin-react": "^6.2.0",
+    "jest-cli": "16.0.2",
+    "live-reload": "^1.1.0",
+    "node-sass": "^3.10.0",
+    "react-addons-test-utils": "^15.3.2",
+    "react-test-renderer": "^15.3.2",
+    "watchify": "^3.2.2"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.5.6",
+    "body-parser": "^1.15.2",
+    "browserify": "^13.1.0",
+    "ejs": "^2.5.1",
+    "express": "^4.14.0",
+    "material-ui": "^0.16.1",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-router": "^3.0.0",
+    "react-tap-event-plugin": "^1.0.0",
+    "redux": "^3.6.0"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "coverageDirectory": "./dist"
+  }
+}
