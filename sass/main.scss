@@ -1,3 +1,24 @@
+@import '../app/expanding_card/scss/main.scss';
+
 body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
   background-color: white;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+#react-app {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.container {
+  height: 100%;
 }

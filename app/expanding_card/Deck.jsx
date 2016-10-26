@@ -1,11 +1,10 @@
 import React from 'react';
 
-import Deck from './expanding_card/Deck.jsx';
-
+import ExpandingCard from './ExpandingCard.jsx';
 /**
- * App Class
+ * Deck Class
  */
-export default class App extends React.Component {
+export default class Deck extends React.Component {
 
     /**
      * constructor
@@ -19,7 +18,6 @@ export default class App extends React.Component {
          * @property {string} title - element title
          */
         this.state = {
-            title: props.title,
         };
     }
 
@@ -30,21 +28,19 @@ export default class App extends React.Component {
     render() {
         return (
             <div
-                className="container"
+                className="row"
             >
-                {this.props.title}
-                <Deck />
+                <ExpandingCard />
+                <ExpandingCard />
             </div>
         );
     }
 }
 
-App.propTypes = {
-    title: React.PropTypes.string,
+Deck.propTypes = {
 };
 
-App.defaultProps = {
-    title: 'Express React App',
+Deck.defaultProps = {
 };
 
-module.exports = App;
+Deck

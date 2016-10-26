@@ -12,13 +12,17 @@
     <link href="<%= "css/main.css" %>" rel="stylesheet">
   </head>
   <body>
-    <div id="react-app"></div>
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-    <script src="<%= "/bundle.js" %>"></script>
-    	  <% if (local_debug) { %>
-    	      <script src="http://localhost:35729/livereload.js"></script>
-          <% } %>
-
+    <header></header>
+    <main>
+        <div id="react-app"></div>
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+        <script src="<%= "/bundle.js" %>"></script>
+              <% if (local_debug) { %>
+                  <script src="http://localhost:35729/livereload.js"></script>
+              <% } %>
+    </main>
+<footer>
+</footer>
   </body>
 </html>
