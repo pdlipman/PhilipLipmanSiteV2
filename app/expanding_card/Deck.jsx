@@ -1,11 +1,17 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import {
+    addCard,
+} from './actions/expandingCardActions.jsx';
+
 import ExpandingCard from './ExpandingCard.jsx';
 /**
  * Deck Class
  */
-export default class Deck extends React.Component {
-
+class Deck extends React.Component {
     /**
      * constructor
      * @param {object} props - properties
@@ -17,8 +23,13 @@ export default class Deck extends React.Component {
          * @type {object}
          * @property {string} title - element title
          */
-        this.state = {
-        };
+        this.state = {};
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        console.log('clicked');
+        this.props.addCard(1);
     }
 
     /**
@@ -26,21 +37,43 @@ export default class Deck extends React.Component {
      * @return {ReactElement} - generated markup
      */
     render() {
+        const deck = this.props.deck.map((card) => {
+            return (
+                <ExpandingCard
+                    key={card.id}
+                    id={card.id}
+                    expanded={card.expanded}
+                />
+            );
+        });
+
         return (
             <div
                 className="row"
             >
-                <ExpandingCard />
-                <ExpandingCard />
+                {deck}
             </div>
         );
     }
 }
 
 Deck.propTypes = {
+    deck: React.PropTypes.array,
 };
 
 Deck.defaultProps = {
+    deck: [],
 };
 
-module.exports = Deck;
+const mapStateToProps = (state) => {
+    return {
+        deck: state.deck,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    addCard,
+}, dispatch);
+
+export { Deck };
+export default connect(mapStateToProps, mapDispatchToProps)(Deck);

@@ -1,10 +1,17 @@
 import React from 'react';
 
 import jQuery from 'jquery';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import {
+    expandCard,
+} from './actions/expandingCardActions.jsx';
 /**
  * ExpandingCard Class
  */
-export default class ExpandingCard extends React.Component {
+class ExpandingCard extends React.Component {
 
     /**
      * constructor
@@ -18,11 +25,12 @@ export default class ExpandingCard extends React.Component {
          * @property {string} title - element title
          */
         this.state = {
+            id: props.id,
             dx: props.dx,
             dy: props.dy,
             expandedWidth: props.expandedWidth,
             expandedHeight: props.expandedHeight,
-            expand: props.expand,
+            expanded: props.expanded,
             screenTop: props.screenTop,
         };
 
@@ -41,6 +49,8 @@ export default class ExpandingCard extends React.Component {
 
     setPosition() {
         const component = this.component;
+
+        // this is the element that the expanding card should fill
         const content = jQuery('.container'); // eslint-disable-line
 
         if (content.length) {
@@ -60,11 +70,10 @@ export default class ExpandingCard extends React.Component {
     }
 
     handleExpand() {
-        if (!this.state.expand) {
+        if (!this.props.expanded) {
             const getScreenTop = jQuery(window).scrollTop();
             this.setState(
                 {
-                    expand: true,
                     screenTop: getScreenTop,
                 });
             jQuery('html, body').animate({ scrollTop: 0 }, 'slow');
@@ -72,18 +81,15 @@ export default class ExpandingCard extends React.Component {
     }
 
     handleContract() {
-        if (this.state.expand) {
+        if (this.props.expanded) {
             const getScreenTop = this.state.screenTop;
             jQuery('html, body').animate({ scrollTop: getScreenTop }, 'slow');
-
-            this.setState({
-                expand: false,
-            });
         }
     }
 
     handleClick() {
-        if (this.state.expand) {
+        this.props.expandCard(this.props.id);
+        if (this.props.expanded) {
             this.handleContract();
         } else {
             this.handleExpand();
@@ -97,15 +103,14 @@ export default class ExpandingCard extends React.Component {
     render() {
         let divStyle = {};
 
-        const divClassName = 'col s12 m4 expanding-card';
+        const divClassName = 'col s12 m4';
 
-        if (this.state.expand) {
+        if (this.props.expanded) {
             divStyle = {
                 left: this.state.dx,
                 top: this.state.dy,
                 width: this.state.expandedWidth,
                 height: this.state.expandedHeight,
-                marginBottom: '0px',
             };
         }
 
@@ -114,11 +119,11 @@ export default class ExpandingCard extends React.Component {
                 className={divClassName}
             >
                 <div
-                    className="initial-card"
+                    className="grid-element"
                     ref={(c) => { this.component = c; }}
                 >
                     <div // eslint-disable-line jsx-a11y/no-static-element-interactions, max-len
-                        className="initial-card-interior"
+                        className="card-content"
                         style={divStyle}
                         onClick={this.handleClick}
                     >
@@ -135,12 +140,14 @@ export default class ExpandingCard extends React.Component {
 }
 
 ExpandingCard.propTypes = {
+    id: React.PropTypes.number,
     dx: React.PropTypes.number,
     dy: React.PropTypes.number,
     expandedWidth: React.PropTypes.number,
     expandedHeight: React.PropTypes.number,
-    expand: React.PropTypes.bool,
+    expanded: React.PropTypes.bool,
     screenTop: React.PropTypes.number,
+    expandCard: React.PropTypes.func,
 };
 
 ExpandingCard.defaultProps = {
@@ -148,8 +155,17 @@ ExpandingCard.defaultProps = {
     dy: 0,
     expandedWidth: 0,
     expandedHeight: 0,
-    expand: false,
+    expanded: false,
     screenTop: 0,
 };
 
-module.exports = ExpandingCard;
+const mapStateToProps = (state) => {
+    return {};
+};
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    expandCard,
+}, dispatch);
+
+export { ExpandingCard };
+export default connect(mapStateToProps, mapDispatchToProps)(ExpandingCard);

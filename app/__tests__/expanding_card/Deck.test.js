@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 
-import Deck from '../../expanding_card/Deck.jsx';
+import { Deck } from '../../expanding_card/Deck.jsx';
 
 describe('Deck', () => {
     test('loads properly', () => {

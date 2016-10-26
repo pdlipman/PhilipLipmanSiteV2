@@ -1,7 +1,19 @@
 import React from 'react';
 
+import { createStore, applyMiddleware, combineReducers, } from 'redux';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+
 import Deck from './expanding_card/Deck.jsx';
 
+import { combinedReducers } from './reducers/combinedReducers.jsx';
+
+const reducers = combineReducers(combinedReducers);
+const store = createStore(reducers,
+    applyMiddleware(
+        thunkMiddleware
+    )
+);
 /**
  * App Class
  */
@@ -32,8 +44,9 @@ export default class App extends React.Component {
             <div
                 className="container"
             >
-                {this.props.title}
-                <Deck />
+                <Provider store={store}>
+                    <Deck />
+                </Provider>
             </div>
         );
     }

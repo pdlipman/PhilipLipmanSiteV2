@@ -2,5 +2,8 @@
   "source": "app",
   "excludes": ["__tests__"],
   "destination": "./dist/esdoc",
-  "includes": ["\\.(js|jsx)$"]
+  "includes": ["\\.(js|jsx)$"],
+  "plugins": [
+    {"name": "esdoc-es7-plugin"}
+  ]
 }
