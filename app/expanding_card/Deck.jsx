@@ -43,4 +43,4 @@ Deck.propTypes = {
 Deck.defaultProps = {
 };
 
-Deck
+module.exports = Deck;

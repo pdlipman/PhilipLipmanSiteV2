@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import jQuery from 'jquery';
 /**
@@ -40,22 +39,42 @@ export default class ExpandingCard extends React.Component {
         window.removeEventListener('resize', this.setPosition);
     }
 
+    setPosition() {
+        const component = this.component;
+        const content = jQuery('.container'); // eslint-disable-line
+
+        if (content.length) {
+            const top = content.offset().top -
+                jQuery(window).scrollTop() - // eslint-disable-line
+                component.getBoundingClientRect().top;
+
+            const left = content.offset().left - component.getBoundingClientRect().left;
+
+            this.setState({
+                dx: left,
+                dy: top,
+                expandedWidth: content.outerWidth(),
+                expandedHeight: content.outerHeight(),
+            });
+        }
+    }
+
     handleExpand() {
         if (!this.state.expand) {
-            var getScreenTop = jQuery(window).scrollTop();
+            const getScreenTop = jQuery(window).scrollTop();
             this.setState(
                 {
                     expand: true,
                     screenTop: getScreenTop,
                 });
-            jQuery("html, body").animate({scrollTop: 0}, "slow");
+            jQuery('html, body').animate({ scrollTop: 0 }, 'slow');
         }
     }
 
     handleContract() {
         if (this.state.expand) {
-            var getScreenTop = this.state.screenTop;
-            jQuery("html, body").animate({scrollTop: getScreenTop}, "slow");
+            const getScreenTop = this.state.screenTop;
+            jQuery('html, body').animate({ scrollTop: getScreenTop }, 'slow');
 
             this.setState({
                 expand: false,
@@ -71,33 +90,11 @@ export default class ExpandingCard extends React.Component {
         }
     }
 
-    setPosition() {
-        const reference = this.refs.card;
-        const node = ReactDOM.findDOMNode(reference);
-        const content = jQuery('.container'); // eslint-disable-line
-
-        if (content.length) {
-            const top = content.offset().top -
-                jQuery(window).scrollTop() - // eslint-disable-line
-                node.getBoundingClientRect().top;
-
-            const left = content.offset().left - node.getBoundingClientRect().left;
-
-            this.setState({
-                dx: left,
-                dy: top,
-                expandedWidth: content.outerWidth(),
-                expandedHeight: content.outerHeight(),
-            });
-        }
-    }
-
     /**
      * render
      * @return {ReactElement} - generated markup
      */
     render() {
-
         let divStyle = {};
 
         const divClassName = 'col s12 m4 expanding-card';
@@ -118,9 +115,9 @@ export default class ExpandingCard extends React.Component {
             >
                 <div
                     className="initial-card"
-                    ref="card"
+                    ref={(c) => { this.component = c; }}
                 >
-                    <div
+                    <div // eslint-disable-line jsx-a11y/no-static-element-interactions, max-len
                         className="initial-card-interior"
                         style={divStyle}
                         onClick={this.handleClick}
