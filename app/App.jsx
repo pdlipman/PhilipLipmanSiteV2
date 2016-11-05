@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createStore, applyMiddleware, combineReducers, } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 

@@ -159,13 +159,9 @@ ExpandingCard.defaultProps = {
     screenTop: 0,
 };
 
-const mapStateToProps = (state) => {
-    return {};
-};
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
     expandCard,
 }, dispatch);
 
-export { ExpandingCard };
-export default connect(mapStateToProps, mapDispatchToProps)(ExpandingCard);
+export { ExpandingCard as TestExpandingCard };
+export default connect(null, mapDispatchToProps)(ExpandingCard);

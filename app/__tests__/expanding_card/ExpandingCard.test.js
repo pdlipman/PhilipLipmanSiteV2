@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import jQuery from 'jquery';
 
-import { ExpandingCard } from '../../expanding_card/ExpandingCard.jsx';
+import { TestExpandingCard as ExpandingCard } from '../../expanding_card/ExpandingCard.jsx';
 
 describe('ExpandingCard', () => {
     document.body.innerHTML = (

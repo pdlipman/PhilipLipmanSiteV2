@@ -1,5 +1,4 @@
 import {
-    EXPANDING_CARD_TEST,
     ADD_CARD,
     EXPAND_CARD,
 } from '../actions/expandingCardActions.jsx';
@@ -13,7 +12,7 @@ const card = (state = {}, action) => {
             };
         }
         case EXPAND_CARD: {
-            if (state.id != action.id) {
+            if (state.id !== action.id) {
                 return state;
             }
 
@@ -28,20 +27,19 @@ const card = (state = {}, action) => {
 };
 
 const initialState = [{ id: 1, expanded: false }, { id: 2, expanded: false }];
-export const deck = (state = initialState, action) => {
+
+export const deck = (state = initialState, action) => { // eslint-disable-line import/prefer-default-export, max-len
     switch (action.type) {
         case ADD_CARD: {
-            console.log(action);
+            console.log(action); // eslint-disable-line no-console
 
             return [
                 ...state,
-                card(undefined, action)
+                card(undefined, action),
             ];
         }
         case EXPAND_CARD: {
-            const newState = state.map(c => {
-                return card(c, action);
-            });
+            const newState = state.map(c => card(c, action));
             return newState;
         }
         default: {

@@ -28,7 +28,7 @@ class Deck extends React.Component {
     }
 
     handleClick() {
-        console.log('clicked');
+        console.log('clicked'); // eslint-disable-line no-console
         this.props.addCard(1);
     }
 
@@ -37,15 +37,13 @@ class Deck extends React.Component {
      * @return {ReactElement} - generated markup
      */
     render() {
-        const deck = this.props.deck.map((card) => {
-            return (
-                <ExpandingCard
-                    key={card.id}
-                    id={card.id}
-                    expanded={card.expanded}
-                />
-            );
-        });
+        const deck = this.props.deck.map(card =>
+            <ExpandingCard
+                key={card.id}
+                id={card.id}
+                expanded={card.expanded}
+            />
+        );
 
         return (
             <div
@@ -58,22 +56,27 @@ class Deck extends React.Component {
 }
 
 Deck.propTypes = {
-    deck: React.PropTypes.array,
+    deck: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+            id: React.PropTypes.number, // eslint-disable-line react/no-unused-prop-types
+            expanded: React.PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+        })
+    ),
+    addCard: React.PropTypes.func,
 };
 
 Deck.defaultProps = {
     deck: [],
 };
 
-const mapStateToProps = (state) => {
-    return {
+const mapStateToProps = state => (
+    {
         deck: state.deck,
-    };
-};
+    });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
     addCard,
 }, dispatch);
 
-export { Deck };
+export { Deck as TestDeck };
 export default connect(mapStateToProps, mapDispatchToProps)(Deck);
